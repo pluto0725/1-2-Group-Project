@@ -1058,7 +1058,7 @@ GameObject:
   - component: {fileID: 1628046592}
   - component: {fileID: 1628046593}
   m_Layer: 0
-  m_Name: ButtonScripts
+  m_Name: ButtonMgr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
