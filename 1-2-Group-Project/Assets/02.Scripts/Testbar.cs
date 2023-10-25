@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Testbar : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class Testbar : MonoBehaviour
         {
             // 타이머가 0보다 작거나 같으면 게임 오버 또는 다른 처리를 추가할 수 있습니다.
             // 예: GameOver() 메소드 호출 또는 다른 처리 추가
+            LoadGameScene(); // 60초가 지나면 Game 씬으로 이동
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -55,6 +57,7 @@ public class Testbar : MonoBehaviour
             currentHealth = 0;
             // 여기에 게임 오버 또는 다른 처리를 추가할 수 있습니다.
             // 예: GameOver() 메소드 호출 또는 다른 처리 추가
+            LoadGameScene(); // 게임 오버 시 Game 씬으로 이동
         }
 
         // HP 바 업데이트
@@ -65,5 +68,12 @@ public class Testbar : MonoBehaviour
     void GameOver()
     {
         // 게임 오버 처리를 추가합니다.
+        LoadGameScene(); // 게임 오버 시 Game 씬으로 이동
+    }
+
+    // "Game" 씬으로 이동하는 메소드
+    void LoadGameScene()
+    {
+        SceneManager.LoadScene("Game");
     }
 }
