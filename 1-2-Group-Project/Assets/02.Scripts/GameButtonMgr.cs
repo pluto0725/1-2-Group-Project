@@ -60,5 +60,10 @@ public class GameButtonMgr : MonoBehaviour
     }
 
 
+    public void GoBossRoom()
+    {
+        SceneManager.LoadScene("Boss_stage_1");
+    }
+
 
 }
