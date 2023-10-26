@@ -1,21 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     private int gold;
+    private int stage = 1;
 
-    // ½Ì±ÛÅæ ÀÎ½ºÅÏ½º
     public static GameManager Instance { get; private set; }
 
-    // °ñµå º¯°æ ÀÌº¥Æ®
+    public delegate void StageChangedEventHandler(int newStage);
+    public event StageChangedEventHandler OnStageChanged;
+
     public delegate void GoldChangedEventHandler(int newGoldValue);
     public event GoldChangedEventHandler OnGoldChanged;
 
     void Awake()
     {
-        // ½Ì±ÛÅæ ÀÎ½ºÅÏ½º ¼³Á¤
         if (Instance == null)
         {
             Instance = this;
@@ -26,18 +27,16 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // ÃÊ±â °ñµå ¼³Á¤
-        gold = 0;
+        gold = PlayerPrefs.GetInt("Gold", 0);
+        stage = PlayerPrefs.GetInt("Stage", 1);
     }
 
-    // °ñµå È¹µæ ¸Þ¼­µå
     public void EarnGold(int amount)
     {
         gold += amount;
         OnGoldChanged?.Invoke(gold);
     }
 
-    // °ñµå ¼Ò¸ð ¸Þ¼­µå
     public void SpendGold(int amount)
     {
         if (gold >= amount)
@@ -51,9 +50,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // ÇöÀç °ñµå ¾ç ¹ÝÈ¯ ¸Þ¼­µå
     public int GetGold()
     {
         return gold;
+    }
+
+    public int GetStage()
+    {
+        return stage;
+    }
+
+    public void SetStage(int newStage)
+    {
+        stage = newStage;
+        OnStageChanged?.Invoke(stage);
+    }
+
+    public void GameClear()
+    {
+        SetStage(GetStage() + 1);
+        EarnGold(10000);
+
+        PlayerPrefs.SetInt("Gold", GetGold());
+        PlayerPrefs.SetInt("Stage", GetStage());
+        PlayerPrefs.Save();
+
+        SceneManager.LoadScene("Game");
     }
 }

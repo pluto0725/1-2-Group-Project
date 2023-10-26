@@ -57,7 +57,7 @@ public class Testbar : MonoBehaviour
             currentHealth = 0;
             // 여기에 게임 오버 또는 다른 처리를 추가할 수 있습니다.
             // 예: GameOver() 메소드 호출 또는 다른 처리 추가
-            LoadGameScene(); // 게임 오버 시 Game 씬으로 이동
+            GameManager.Instance.GameClear(); // 게임 오버 시 Game 씬으로 이동
         }
 
         // HP 바 업데이트
@@ -72,8 +72,12 @@ public class Testbar : MonoBehaviour
     }
 
     // "Game" 씬으로 이동하는 메소드
+
+ 
+
     void LoadGameScene()
     {
         SceneManager.LoadScene("Game");
     }
 }
+
